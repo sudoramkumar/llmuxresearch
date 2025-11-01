@@ -1,0 +1,1419 @@
+{
+  "name": "UX Research - 1 Nov GOLD Copy",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "Realistic Metro Persona Generation for Q Commerce Research",
+        "height": 304,
+        "width": 1216,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3552,
+        -976
+      ],
+      "typeVersion": 1,
+      "id": "68fdf90f-3111-4e9a-a137-e4dcdf71b94f",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{ $json.content }}"
+            },
+            {
+              "content": "You are a formatter that outputs newline-delimited JSON (NDJSON). Produce exactly COUNT compact JSON objects, one per line, with no extra text.",
+              "role": "system"
+            }
+          ]
+        },
+        "simplify": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -3088,
+        -896
+      ],
+      "id": "e845a734-f567-4c26-9fc0-0fb70c18f64f",
+      "name": "Persona Generator",
+      "alwaysOutputData": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "jeLj8KX8XLiJ51SN",
+          "name": "UX Research"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "text": "={{$json._filledPrompt}}",
+        "inputType": "base64",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        -2160,
+        0
+      ],
+      "id": "502b1121-86c2-4277-80ae-03e14656173d",
+      "name": "IM HP Assessor",
+      "alwaysOutputData": true,
+      "credentials": {
+        "openAiApi": {
+          "id": "jeLj8KX8XLiJ51SN",
+          "name": "UX Research"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1OzknEQHkArTG29xmW7JQaulZAWbyrn-B",
+          "mode": "list",
+          "cachedResultName": "HomePage 1.png",
+          "cachedResultUrl": "https://drive.google.com/file/d/1OzknEQHkArTG29xmW7JQaulZAWbyrn-B/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -3296,
+        288
+      ],
+      "id": "e593877d-5337-48e5-b50a-4a016e2b878b",
+      "name": "Download IM HP",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "geqYqwryYmvYesSJ",
+          "name": "Download HP Details"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo",
+          "mode": "list",
+          "cachedResultName": "Qcomm Synthetic Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Feedback": "={{ $json.Feedback }}",
+            "Likelyhood of Buying something": "={{ $json.Likelihood }}",
+            "Persona Name": "={{ $json.PersonaName }}"
+          },
+          "matchingColumns": [
+            "Persona Name"
+          ],
+          "schema": [
+            {
+              "id": "Persona ID",
+              "displayName": "Persona ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Name",
+              "displayName": "Persona Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Age Bracket",
+              "displayName": "Age Bracket",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Occupation",
+              "displayName": "Occupation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salary",
+              "displayName": "Salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Demographic",
+              "displayName": "Demographic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Type (Demographic)",
+              "displayName": "Persona Type (Demographic)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Type (Behavioral)",
+              "displayName": "Persona Type (Behavioral)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Goal",
+              "displayName": "Goal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pain",
+              "displayName": "Pain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Summary",
+              "displayName": "Persona Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Feedback",
+              "displayName": "Feedback",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likelyhood of Buying something",
+              "displayName": "Likelyhood of Buying something",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -1584,
+        144
+      ],
+      "id": "551f97b9-fcdd-41ac-a6ee-e3d9e6fa5427",
+      "name": "Update Persona Feedback",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4i750Z2bgTE9woTz",
+          "name": "r@mkum@r Gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo",
+          "mode": "list",
+          "cachedResultName": "Qcomm Synthetic Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Persona Name": "={{ $json[\"Persona Name\"] }}",
+            "Age Bracket": "={{ $json[\"Age Bracket\"] }}",
+            "Occupation": "={{ $json.Occupation }}",
+            "Salary": "={{ $json.Salary }}",
+            "Demographic": "={{ $json.Demographic }}",
+            "Persona Type (Demographic)": "={{ $json.Demographic }}",
+            "Persona Type (Behavioral)": "={{ $json[\"Persona Type (Behavioral)\"] }}",
+            "Goal": "={{ $json.Goal }}",
+            "Pain": "={{ $json.Pain }}",
+            "Persona Summary": "={{ $json.Summary }}",
+            "Persona ID": "={{ $json[\"Persona ID\"] }}"
+          },
+          "matchingColumns": [
+            "Persona ID"
+          ],
+          "schema": [
+            {
+              "id": "Persona ID",
+              "displayName": "Persona ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Persona Name",
+              "displayName": "Persona Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Age Bracket",
+              "displayName": "Age Bracket",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Occupation",
+              "displayName": "Occupation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salary",
+              "displayName": "Salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Demographic",
+              "displayName": "Demographic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Type (Demographic)",
+              "displayName": "Persona Type (Demographic)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Type (Behavioral)",
+              "displayName": "Persona Type (Behavioral)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Goal",
+              "displayName": "Goal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pain",
+              "displayName": "Pain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Summary",
+              "displayName": "Persona Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -2512,
+        -896
+      ],
+      "id": "2c064950-4b49-493f-bc05-911b6893b286",
+      "name": "Create Personas",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4i750Z2bgTE9woTz",
+          "name": "r@mkum@r Gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Parse model output into three fields: PersonaName, Feedback, Likelihood\n// (Runs once per item)\n\nlet raw =\n  $json?.content ??\n  $json?.data?.choices?.[0]?.message?.content ??\n  $json?.choices?.[0]?.message?.content ??\n  $json?.output ??\n  $json?.text ??\n  \"\";\n\nraw = String(raw);\n\n// Strip code fences like ```json ... ```\nraw = raw.replace(/```json|```/g, \"\").trim();\n\n// Try to parse JSON; if extra text exists, grab the first {...} block\nlet obj = {};\ntry {\n  obj = JSON.parse(raw);\n} catch (e) {\n  const m = raw.match(/\\{[\\s\\S]*\\}/);\n  if (m) {\n    try { obj = JSON.parse(m[0]); } catch (_) { obj = {}; }\n  }\n}\n\n// Prefer persona name from model JSON, fall back to fields\nconst personaName =\n  obj[\"Persona Name\"] ??\n  obj.Persona_Name ??\n  $json[\"Persona Name\"] ??\n  $json.Persona_Name ??\n  $json.name ??\n  \"\";\n\n// Normalize keys\nconst feedback =\n  obj.Feedback ??\n  obj[\"Feedback\"] ??\n  obj.feedback ??\n  \"\";\n\nconst likelihood =\n  obj.Purchase_Likelihood ??\n  obj[\"Purchase Likelihood\"] ??\n  obj.likelihood ??\n  obj.PurchaseLikelihood ??\n  \"\";\n\n// Return the clean shape for the Sheets update node\nreturn {\n  json: {\n    PersonaName: personaName,\n    Feedback: feedback,\n    Likelihood: likelihood,\n    // pass through any row identifiers you already have on the item\n    RowNumber: $json.RowNumber ?? undefined,\n    Persona_ID: $json.Persona_ID ?? undefined,\n  },\n  binary: $binary, // keep binaries if needed later\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1952,
+        0
+      ],
+      "id": "98d7c98b-15e0-4372-a8bf-7758f18fc1e3",
+      "name": "Format Output"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Function node (Item mode)\nconst raw = $json.choices?.[0]?.message?.content ?? $json.data ?? $json.text ?? '';\nconst lines = raw.split('\\n').map(l => l.trim()).filter(l => l.startsWith('{') && l.endsWith('}'));\nreturn lines.map(l => JSON.parse(l));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2736,
+        -896
+      ],
+      "id": "08ff1d98-04e2-4385-a132-5c932f6a6fa8",
+      "name": "Output Formatter"
+    },
+    {
+      "parameters": {
+        "content": "Persona-Aware Product Relevance Evaluation",
+        "height": 1008,
+        "width": 3136
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -3600,
+        -560
+      ],
+      "typeVersion": 1,
+      "id": "fb1adc1b-6ea5-4be9-a317-52f9d98ad4d1",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/1BqNQu-sbjjsbaJopj0FpZhxtM0JkdgbqRisY68RXrdc/edit?tab=t.0"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -3296,
+        128
+      ],
+      "id": "7ade1f1a-b4f1-4d90-872e-6897e78ae87d",
+      "name": "Prompt",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "6BE6MtuP1MvTOx0J",
+          "name": "Google Docs account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo",
+          "mode": "list",
+          "cachedResultName": "Qcomm Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -3296,
+        -48
+      ],
+      "id": "1e375f7e-4f2e-4e6e-830e-64bfa4427669",
+      "name": "Read Personas",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4i750Z2bgTE9woTz",
+          "name": "r@mkum@r Gmail"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -3552,
+        128
+      ],
+      "id": "ddd0fdfe-7778-4531-8a48-c9588037ec53",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -2848,
+        144
+      ],
+      "id": "dc4f3b9d-be19-4266-a8af-c1a2272b2e30",
+      "name": "Merge Persona+Prompt+Image",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -3088,
+        32
+      ],
+      "id": "b7effcbf-8c7a-4c0d-9046-4ca3e00898db",
+      "name": "Merge Persona+Prompt",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "https://docs.google.com/document/d/1YgWh-HJelmD4--AoMWIcIwLB1r7T362uuICU-lfMpdE/edit?tab=t.0"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -3520,
+        -896
+      ],
+      "id": "02844a05-c516-459c-900d-6c38d50cc8c4",
+      "name": "Prompt for Metro Personas",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "6BE6MtuP1MvTOx0J",
+          "name": "Google Docs account 4"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -3312,
+        -896
+      ],
+      "id": "a6620b8e-54a4-4e3c-9d3d-975e6d6c2372",
+      "name": "Loop Over Persona",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "options": {
+          "reset": false
+        }
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -2416,
+        144
+      ],
+      "id": "c78d944c-e424-4caa-8874-d845c2f97b5f",
+      "name": "Loop Over Feedback",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{\n  \"anchors\": [\n    { \"label\": \"1_very_unlikely\",   \"likert\": 1, \"anchor\": \"It's very unlikely; I wouldn't buy it.\" },\n    { \"label\": \"2_unlikely\",        \"likert\": 2, \"anchor\": \"It's unlikely; probably not for me.\" },\n    { \"label\": \"3_undecided\",       \"likert\": 3, \"anchor\": \"I'm undecided; I might or might not buy.\" },\n    { \"label\": \"4_somewhat_likely\", \"likert\": 4, \"anchor\": \"I'm somewhat likely; I'd consider buying.\" },\n    { \"label\": \"5_very_likely\",     \"likert\": 5, \"anchor\": \"It's very likely; I would buy it.\" }\n  ]\n}\n",
+        "options": {
+          "dotNotation": false
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -336,
+        -192
+      ],
+      "id": "e4942552-b2f8-4b14-a92d-4643ce19d487",
+      "name": "Edit Fields",
+      "alwaysOutputData": true,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        32,
+        16
+      ],
+      "id": "58afeea2-b7ba-4abd-bda3-e951ef5f9d6f",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "jeLj8KX8XLiJ51SN",
+          "name": "UX Research"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "anchors",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -96,
+        -192
+      ],
+      "id": "2a379196-49ab-437f-a5ef-bdcbf457ba9c",
+      "name": "Split Out",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "SSRAnchors",
+          "mode": "list",
+          "cachedResultName": "SSRAnchors"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        112,
+        -192
+      ],
+      "id": "7efc57e4-4289-401a-8cc5-652394b96416",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "Z95PAlzhproB3Rrm",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        16
+      ],
+      "id": "8f3246f1-85b6-4d55-a1e3-55f7277a37c6",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "content": "Anchor Feedback Embedding",
+        "height": 464,
+        "width": 832
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        -304
+      ],
+      "typeVersion": 1,
+      "id": "44cdeb9a-f9c6-4c6a-a672-47940e926c19",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// --- Replace placeholders with sheet data ---\nfunction fill(template, data) {\n  return String(template).replace(/\\{\\{\\s*([^}]+)\\s*\\}\\}/g, (_, key) => {\n    const normalizedKey = key.trim();\n    // Try exact match first\n    if (data[normalizedKey] !== undefined) return data[normalizedKey];\n    // Try key with underscores replaced by spaces\n    const spacedKey = normalizedKey.replace(/_/g, \" \");\n    if (data[spacedKey] !== undefined) return data[spacedKey];\n    // Try key with spaces replaced by underscores\n    const underscoredKey = normalizedKey.replace(/\\s+/g, \"_\");\n    if (data[underscoredKey] !== undefined) return data[underscoredKey];\n    // Default to empty string\n    return \"\";\n  });\n}\n\nconst promptText = $json.content || \"\";\nconst filledPrompt = fill(promptText, $json);\n\n// Keep image binary intact\nreturn {\n  json: { ...$json, _filledPrompt: filledPrompt },\n  binary: $binary,\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2640,
+        144
+      ],
+      "id": "bfc2d4bf-2be4-4e8f-8e2a-35572e513f8a",
+      "name": "Attach Filled Prompt + Image",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-large",
+        "options": {
+          "stripNewLines": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -1712,
+        -256
+      ],
+      "id": "0182e891-f3ee-414e-a37f-4ae76d06e5bf",
+      "name": "Embeddings",
+      "credentials": {
+        "openAiApi": {
+          "id": "jeLj8KX8XLiJ51SN",
+          "name": "UX Research"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo",
+          "mode": "list",
+          "cachedResultName": "Qcomm Synthetic Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Persona",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1A6CA1wqD787NJ0rvhq8duuLYwhVvbkMtIEgJ5U4-iAo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "SSR Label": "={{ $json.SSR_Label }}",
+            "SSR Likert": "={{ $json.SSR_Likert }}",
+            "SSR Similarity Score": "={{ $json.SSR_Similarity }}",
+            "row_number": 0,
+            "Persona Name": "={{ $json.PersonaName }}"
+          },
+          "matchingColumns": [
+            "Persona Name"
+          ],
+          "schema": [
+            {
+              "id": "Persona ID",
+              "displayName": "Persona ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Name",
+              "displayName": "Persona Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Age Bracket",
+              "displayName": "Age Bracket",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Occupation",
+              "displayName": "Occupation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salary",
+              "displayName": "Salary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Demographic",
+              "displayName": "Demographic",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Type (Demographic)",
+              "displayName": "Persona Type (Demographic)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Type (Behavioral)",
+              "displayName": "Persona Type (Behavioral)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Goal",
+              "displayName": "Goal",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pain",
+              "displayName": "Pain",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Persona Summary",
+              "displayName": "Persona Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Feedback",
+              "displayName": "Feedback",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likelyhood of Buying something",
+              "displayName": "Likelyhood of Buying something",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SSR Label",
+              "displayName": "SSR Label",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "SSR Likert",
+              "displayName": "SSR Likert",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "SSR Similarity Score",
+              "displayName": "SSR Similarity Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -752,
+        -464
+      ],
+      "id": "9777c7ea-7ef0-4634-9f0b-3766492f5d06",
+      "name": "Update SRR Ratings",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "4i750Z2bgTE9woTz",
+          "name": "r@mkum@r Gmail"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "load",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "SSRAnchors",
+          "mode": "list",
+          "cachedResultName": "SSRAnchors"
+        },
+        "prompt": "={{ $json.Likelihood }}",
+        "topK": 1,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1.3,
+      "position": [
+        -1664,
+        -400
+      ],
+      "id": "664c52a6-4d9f-4aa6-aeaf-c668aec3e0d0",
+      "name": "Feedback Embedding",
+      "notesInFlow": false,
+      "credentials": {
+        "qdrantApi": {
+          "id": "Z95PAlzhproB3Rrm",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Take first result/hit, regardless of shape\nconst hit = $json.hits?.[0] || $json.result?.[0] || $json.points?.[0] || $json;\n\n// Text returned by Qdrant's document store\nconst text = hit?.document?.pageContent || '';\n\n// Qdrant score is cosine distance (0 = identical, ~2 = opposite). We'll bound to [0,1].\nconst distance = typeof hit?.score === 'number' ? hit.score : 1;\nconst similarity = Math.max(0, Math.min(1, 1 - distance)); // clamp for safety\n\n// Normalize and map the anchor sentence to label/likert\nconst norm = text.toLowerCase().replace(/[^\\w\\s]/g, '').trim();\n\nconst MAP = [\n  { phrase: 'its very unlikely i wouldnt buy it',        label: '1_very_unlikely',   likert: 1 },\n  { phrase: 'its unlikely probably not for me',          label: '2_unlikely',        likert: 2 },\n  { phrase: 'im undecided i might or might not buy',     label: '3_undecided',       likert: 3 },\n  { phrase: 'im somewhat likely id consider buying',     label: '4_somewhat_likely', likert: 4 },\n  { phrase: 'its very likely i would buy it',            label: '5_very_likely',     likert: 5 },\n];\n\nlet matched = MAP.find(m => norm.includes(m.phrase)) || { label: '', likert: null };\n\nreturn [{\n  json: {\n    SSR_Label: matched.label,\n    SSR_Likert: matched.likert,\n    SSR_Similarity: similarity,         // or Number(similarity.toFixed(3)) to round\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1312,
+        -304
+      ],
+      "id": "83d45961-0a5c-4a63-acf8-f656723df69b",
+      "name": "Map Feedback Embedding with Anchors"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1024,
+        -464
+      ],
+      "id": "11e9434a-fdb4-4e17-b195-d8d5dfdaf5ce",
+      "name": "Merge Persona Name + SRR"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -1312,
+        -544
+      ],
+      "id": "b2550d21-d379-4753-8901-5b0b82ed722e",
+      "name": "Get Persona Name"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://production-sfo.browserless.io/screenshot",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "token",
+              "value": "2TK2TC7bkSucAyP8e35fcfb0462749fe3148ce3b1ae1a2159"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"url\": \"https://www.swiggy.com/instamart\",\n  \"cookies\": [\n    { \"name\": \"lat\", \"value\": \"12.93543\", \"domain\": \".swiggy.com\", \"path\": \"/\" },\n    { \"name\": \"lng\", \"value\": \"77.61499\", \"domain\": \".swiggy.com\", \"path\": \"/\" }\n  ],\n  \"gotoOptions\": {\n    \"waitUntil\": \"networkidle2\",\n    \"timeout\": 60000\n  },\n  \"options\": {\n    \"type\": \"png\",\n    \"fullPage\": true\n  }\n}\n",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "screenshot.png"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1920,
+        -848
+      ],
+      "id": "065191b6-007c-48dd-9767-f47e7624e03f",
+      "name": "HTTP Request",
+      "alwaysOutputData": false
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Persona Generator": {
+      "main": [
+        [
+          {
+            "node": "Output Formatter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IM HP Assessor": {
+      "main": [
+        [
+          {
+            "node": "Format Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download IM HP": {
+      "main": [
+        [
+          {
+            "node": "Merge Persona+Prompt+Image",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Format Output": {
+      "main": [
+        [
+          {
+            "node": "Update Persona Feedback",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Feedback Embedding",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Persona Name",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Output Formatter": {
+      "main": [
+        [
+          {
+            "node": "Create Personas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt": {
+      "main": [
+        [
+          {
+            "node": "Merge Persona+Prompt",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Read Personas": {
+      "main": [
+        [
+          {
+            "node": "Merge Persona+Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read Personas",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prompt",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Download IM HP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Persona+Prompt+Image": {
+      "main": [
+        [
+          {
+            "node": "Attach Filled Prompt + Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Persona+Prompt": {
+      "main": [
+        [
+          {
+            "node": "Merge Persona+Prompt+Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt for Metro Personas": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Persona",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Persona Feedback": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Personas": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Persona",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Persona": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Persona Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Feedback": {
+      "main": [
+        [],
+        [
+          {
+            "node": "IM HP Assessor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attach Filled Prompt + Image": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Feedback Embedding",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Feedback Embedding": {
+      "main": [
+        [
+          {
+            "node": "Map Feedback Embedding with Anchors",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Persona Name",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Map Feedback Embedding with Anchors": {
+      "main": [
+        [
+          {
+            "node": "Merge Persona Name + SRR",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Persona Name + SRR": {
+      "main": [
+        [
+          {
+            "node": "Update SRR Ratings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Persona Name": {
+      "main": [
+        [
+          {
+            "node": "Merge Persona Name + SRR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0b0ecdbc-495d-4cf0-bec6-be6a089958b8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0db25aff814d9d346b0e6d897946122cfc12e064b6e58ff53ffd8c9cc948ff20"
+  },
+  "id": "vHOkT8SAUAWXzFEY",
+  "tags": []
+}
